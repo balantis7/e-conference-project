@@ -1,0 +1,16 @@
+<ui:composition xmlns="//www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template1.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="top_title"><h1>#{msgs.welcome}</h1></ui:define>
+	<ui:define name="top_menu">
+	<li><a href="login.jsf">#{msgs.login}</a></li>
+	<li><a href="signup.jsf">#{msgs.signup}</a></li>
+	</ui:define>
+	<ui:define name="main_view">
+	#{msgs.welcome_message}
+	</ui:define>
+</ui:composition>

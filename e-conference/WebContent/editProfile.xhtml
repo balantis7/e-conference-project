@@ -1,0 +1,70 @@
+<ui:composition xmlns="//www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template3.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="top_title"><h1>#{msgs.editProfile}</h1></ui:define>
+	<ui:define name="main_view">  
+<p></p>
+	<ui:fragment >
+	<p:fieldset legend="#{msgs.user}: #{userBean.user.username}" id="userField">
+	<p:panel header="#{msgs.profileDetails}" style="margin-top:20px">
+	<h:form>
+	 <table>
+	 <tr>
+	 <td ><b>#{msgs.username}:</b></td><td>
+	 <p:inplace editor="true">  
+	 			<p:ajax event="save" listener="#{userBean.editUsername}"/>
+                <p:inputText value="#{userBean.user.username}"  
+                            required="true" label="username" id="username"/>  
+            </p:inplace></td>
+	 </tr>
+	 <tr>
+	 <td><b>#{msgs.name}:</b></td><td>
+	 <p:inplace editor="true">  
+	 			<p:ajax event="save" listener="#{userBean.editName}"/>
+                <p:inputText value="#{userBean.user.name}"  
+                            required="true" label="username" id="name"/>  
+            </p:inplace></td>
+	 </tr>
+	 <tr>
+	 <td ><b>#{msgs.surname}:</b></td><td>
+	 <p:inplace editor="true">  
+	 			<p:ajax event="save" listener="#{userBean.editSurname}"/>
+                <p:inputText value="#{userBean.user.surname}"  
+                            required="true" label="surname" id="surname"/>  
+            </p:inplace></td>
+	 </tr>
+	 <tr>
+	 <td ><b>#{msgs.aboutPr}:</b></td><td>
+	 <p:inplace editor="true">  
+	 			<p:ajax event="save" listener="#{userBean.editAbout}"/>
+                <p:inputText value="#{userBean.user.about}"  
+                            required="true" label="about" id="about"/>  
+            </p:inplace></td>
+	 </tr>
+	 <tr>
+	 <td><p:commandButton id="done" value="#{msgs.done}" action="profile.jsf" ajax="false"/></td>
+	 <td><p:commandButton id="home" value="#{msgs.home}" action="workspace.jsf" ajax="false"/></td>
+	 </tr>
+	 </table>
+	 <p></p>
+	 <p>*#{msgs.editMessage}</p>
+	 </h:form>
+   		 
+    </p:panel>
+	</p:fieldset>
+	</ui:fragment>
+	<ui:fragment rendered="#{userBean.user.notLoggedIn}">
+	#{msgs.loginPromt}
+	<p></p>
+	<p:separator id="separator"/> 
+	<p></p>
+	<h:form>
+	<p:commandButton id="login" value="#{msgs.login}" ajax="false" action="login.jsf"/>
+	</h:form>
+	</ui:fragment>
+	</ui:define>
+</ui:composition>

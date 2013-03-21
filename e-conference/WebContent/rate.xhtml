@@ -1,0 +1,43 @@
+<ui:composition xmlns="//www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template3.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="top_title"><h1>#{msgs.rate}</h1></ui:define>
+	<ui:define name="main_view">  
+	<p>#{msgs.rate_instr}</p>
+		<h:form> 
+		<table width="70%"> 
+		<tr>
+		<th style="border:2px; background-color:#B2BDCB">alternatives:</th>
+		<ui:repeat var="criterio" value="#{projectBean.project.criteria}" varStatus="status1">
+        <th style="border:2px; background-color:#B2BDCB"><h:outputText value="#{criterio.name}:" /></th>
+        </ui:repeat>
+        </tr>
+  	<ui:repeat var="alternatives" value="#{projectBean.project.alternatives}" varStatus="status">
+  	<tr>
+  	<td style="border:2px; background-color:#B2BDCB"><b>#{alternatives.name}:</b></td>
+        <ui:repeat var="criterio" value="#{projectBean.project.criteria}" varStatus="status1">
+        <td>
+<!--         <p:rating value="#{projectBean.ratings[status.index][status1.index]}" stars="#{criterio.intervals}" rendered="#{!criterio.quantitative}"/> -->
+        <p:selectOneMenu value="#{projectBean.ratings[status.index][status1.index]}" effect="fade"  rendered="#{!criterio.quantitative}">  
+            <f:selectItem itemLabel="Select One" itemValue="" />  
+            <f:selectItems value="#{criterio.scale}" var="scale" itemLabel="#{scale.string}" itemValue="#{scale.value}"/>  
+        </p:selectOneMenu>
+        <p:spinner id="spinnerStep" value="#{projectBean.ratings[status.index][status1.index]}" stepFactor="0.05" min="#{criterio.best lt criterio.worst ? criterio.best:criterio.worst}" max="#{criterio.best gt criterio.worst ? criterio.best : criterio.worst}" rendered="#{criterio.quantitative}" />
+       	</td>
+  		</ui:repeat>
+  	</tr> 
+  	</ui:repeat> 
+  	</table>
+  	<p/>
+  	<p:separator/>
+  	<p/>
+  	<p:orderList value="#{projectBean.alternatives}" var="alternative" controlsLocation="left"  
+                 itemLabel="#{alternative.name}" itemValue="#{alternative.id}" iconOnly="true" id="order"/> 
+   <p:commandButton value="rate" action="#{projectBean.storeRate}" ajax="false"/>
+		</h:form>  
+	</ui:define>
+</ui:composition>

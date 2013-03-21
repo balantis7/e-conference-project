@@ -1,0 +1,30 @@
+<ui:composition xmlns="//www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/template1.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="script">
+	<script type="text/javascript">
+	function forward()
+		{
+			window.location = "workspace.jsf"
+		}
+
+</script>
+	</ui:define>
+	<ui:define name="top_title"><h1>#{msgs.welcome} #{userBean.user.username}</h1> 
+	<script type="text/javascript">setTimeout('forward()',3000);</script>
+	</ui:define>
+	<ui:define name="top_text">
+		<h2><h:link value="#{msgs.redirect}" outcome="start" >
+		</h:link></h2>
+	</ui:define>
+	<ui:define name="nav_menu"></ui:define>
+	<ui:define name="main_content">
+	</ui:define>
+	<ui:define name="section1"></ui:define>
+	<ui:define name="section2"></ui:define>
+	<ui:define name="section3"></ui:define>
+	<ui:define name="section4"></ui:define>
+</ui:composition>

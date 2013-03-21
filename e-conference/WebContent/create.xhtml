@@ -1,0 +1,431 @@
+<ui:composition xmlns="//www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template3.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="top_title"><h1>#{msgs.create_title}</h1></ui:define>
+	<ui:define name="main_view">  
+
+	
+	<p:panel header="#{msgs.create_title}">  
+	
+	<ui:fragment rendered="#{userBean.user.admin}">
+ 	<ui:fragment rendered="#{projectBean.doBasic==1}" id="step1">	
+ 	<h:form>
+  <table>
+  <tr>
+    <td><b>#{msgs.project_title}: </b></td>
+    <td>
+    <p:inputText value="#{projectBean.project.title}" id="username"
+     required="true" 
+     requiredMessage="#{msgs.requireTitle }" size="50" /></td>
+     <td><p:message for="username" styleClass="error"/></td>
+ </tr>
+  <tr>
+    <td><b>#{msgs.description}: </b></td>
+    <td colspan="5">
+      <p:inputTextarea value="#{projectBean.project.description}" id="email" cols="50" rows="10" /></td> 
+  </tr>
+  </table>
+  <p:commandButton value="#{msgs.submit }" onclick="dlg14.show()" type="button"/>
+  <p:commandButton id="cancelProject" value="#{msgs.cancel_project}" onclick="dlg6.show()" type="button"/> 
+     
+     <p:dialog id="modalDialog6" header="#{msgs.require_confirm}" widgetVar="dlg6" height="100">
+     #{msgs.cancel_confirm}
+     <p:commandButton id="confirm6" value="#{msgs.yes}" update="step4" oncomplete="dlg6.hide()"  
+                    action="#{projectBean.cancelProjectCreation}" ajax="false" immediate="true"/>  
+        <p:commandButton id="decline6" value="#{msgs.no}" onclick="dlg6.hide()" type="button" /> 
+     </p:dialog>
+  
+  <p:dialog id="modalDialog14" header="#{msgs.require_confirm}" widgetVar="dlg14" height="100">  
+   
+   		#{msgs.sure_message }
+        <p:commandButton id="confirm14" value="#{msgs.yes}" update="step2" oncomplete="dlg14.hide()"  
+                    action="#{projectBean.createProjectBasic}" ajax="false"/>  
+        <p:commandButton id="decline14" value="#{msgs.no}" onclick="dlg14.hide()" type="button" />    
+</p:dialog>  
+ 
+  </h:form>
+  </ui:fragment>
+  <ui:fragment rendered="#{projectBean.doUsers==1}" id="step2">
+<h:form>
+  <p:panel id="pnl" header="#{msgs.project_basic}" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">  
+  
+  				<table>
+  				<tr>
+  				<td>
+                 <b>#{msgs.project_title}: </b></td><td align="center">#{projectBean.project.title}</td>
+                 </tr>
+                 <tr>
+                 <td><b>#{msgs.description}: </b></td><td align="center">#{projectBean.project.description}</td>
+                 </tr>
+                 </table>
+           
+    </p:panel> 
+    <p></p>  
+  </h:form>
+  <h:form id="userSelect">
+  <p:dataTable id="userSelect" var="user" value="#{projectBean.userList}" paginator="true" rows="10"  
+                 selection="#{projectBean.selectedUsers}">  
+  
+        <f:facet name="header">  
+            #{msgs.select_users}  
+        </f:facet>  
+  
+        <p:column selectionMode="multiple" style="width:18px" />  
+  
+        <p:column headerText="#{msgs.username}">  
+            #{user.username}  
+        </p:column>  
+  
+        <p:column headerText="#{msgs.name}">  
+            #{user.name}  
+        </p:column>  
+  
+        <p:column headerText="#{msgs.surname}" >  
+            #{user.surname}  
+        </p:column>  
+        <p:column headerText="#{msgs.weight}" >  
+            <p:inputText value="#{user.curProjectWeight}" id="weight"
+     required="true" 
+     requiredMessage="#{msgs.requireTitle }" size="2" />  
+        </p:column> 
+    </p:dataTable>
+  <p></p>
+    <p:commandButton id="userListSubmit" value="#{msgs.done}" onclick="dlg13.show()" type="button"/> 
+    <p:commandButton id="cancelProject" value="#{msgs.cancel_project}" onclick="dlg7.show()" type="button"/> 
+     
+     <p:dialog id="modalDialog7" header="#{msgs.require_confirm}" widgetVar="dlg7" height="100">
+     #{msgs.cancel_confirm}
+     <p:commandButton id="confirm7" value="#{msgs.yes}" update="step4" oncomplete="dlg7.hide()"  
+                    action="#{projectBean.cancelProjectCreation}" ajax="false" immediate="true"/>  
+        <p:commandButton id="decline7" value="#{msgs.no}" onclick="dlg7.hide()" type="button" /> 
+     </p:dialog>
+     
+     <p:dialog id="modalDialog13" header="#{msgs.require_confirm}" widgetVar="dlg13" height="100">
+     #{msgs.user_confirm}
+     <p:commandButton id="confirm13" value="#{msgs.yes}" update="step4" oncomplete="dlg13.hide()"  
+                    action="#{projectBean.userListDone}" ajax="false"/>  
+        <p:commandButton id="decline13" value="#{msgs.no}" onclick="dlg13.hide()" type="button" /> 
+     </p:dialog>
+  </h:form>
+</ui:fragment>
+<ui:fragment rendered="#{projectBean.doAlt==1}" id="step3">
+	<h:form>
+  <p:panel id="pnl" header="Project Basic Information" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">  
+  
+  				<table>
+  				<tr>
+  				<td>
+                 <b>Project Title: </b></td><td align="center">#{projectBean.project.title}</td>
+                 </tr>
+                 <tr>
+                 <td><b>Project Description: </b></td><td align="center">#{projectBean.project.description}</td>
+                 </tr>
+                 </table>
+           
+    </p:panel> 
+    <p></p> 
+    <p:panel id="pnl4" header="Decision Makers Information" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+    <p:dataTable var="user" value="#{projectBean.dm}" border="0" 
+  	id="DmTableFinal" width="100%"> 
+  	<f:facet name="header">  
+            Final Decision Makers Table
+  </f:facet> 
+  <p:column headerText="#{msgs.username}">  
+            #{user.username}  
+        </p:column>  
+  
+        <p:column headerText="#{msgs.name}">  
+            #{user.name}  
+        </p:column>  
+  
+        <p:column headerText="#{msgs.surname}" >  
+            #{user.surname}  
+        </p:column> 
+        <p:column headerText="#{msgs.weight}" >  
+            #{user.curProjectWeight}  
+        </p:column>
+  	</p:dataTable> 
+    </p:panel>
+  </h:form>
+  
+  <h:form>
+  <p></p>
+  
+  <p:dataTable var="alternative" value="#{projectBean.alternatives}" border="0" 
+  id="AltTable" width="100%" rowKey="#{alternative.id}"  
+                 selection="#{projectBean.selectedAlt}" selectionMode="single">
+  <f:facet name="header">  
+            Alternatives Added
+  </f:facet>  
+  <p:column align="center"> 
+  #{alternative.name}</p:column>
+  </p:dataTable>
+
+ 	<p:commandButton value="delete selected" update="AltTable" action="#{projectBean.deleteAlternative}" />
+ 	<p></p>
+ <p:fieldset legend="Add new Alternative">
+  <table>
+  <tr>
+  <th align="center"><b>Insert Alternative name:</b></th>
+  <td align="center"><p:inputText value="#{projectBean.alternative.name}" id="alt_name" size="20"/></td>
+  <td><p:commandButton value="#{msgs.add }" update="AltTable, alt_name" action="#{projectBean.addAlternative}"/></td>
+  </tr>
+  </table>
+   </p:fieldset>
+   <p></p>
+  <p:commandButton value="done" onclick="dlg12.show()" type="button"/>
+  <p:commandButton id="cancelProject" value="#{msgs.cancel_project}" onclick="dlg8.show()" type="button"/> 
+     
+     <p:dialog id="modalDialog8" header="#{msgs.require_confirm}" widgetVar="dlg8" height="100">
+     #{msgs.cancel_confirm}
+     <p:commandButton id="confirm8" value="#{msgs.yes}" update="step4" oncomplete="dlg8.hide()"  
+                    action="#{projectBean.cancelProjectCreation}" ajax="false" immediate="true"/>  
+        <p:commandButton id="decline8" value="#{msgs.no}" onclick="dlg8.hide()" type="button" /> 
+     </p:dialog>
+  <p:dialog id="modalDialog12" header="#{msgs.require_confirm}" widgetVar="dlg12" height="100">
+  #{msgs.alt_confirm}
+  <p:commandButton id="confirm12" value="Yes Sure" update="step3" oncomplete="dlg12.hide()"  
+                    action="#{projectBean.alternativesDone}" ajax="false"/>  
+        <p:commandButton id="decline12" value="Not Yet" onclick="dlg12.hide()" type="button" />  
+  </p:dialog>
+</h:form> 
+
+</ui:fragment>
+
+<ui:fragment rendered="#{projectBean.doCrit==1}" id="step4">
+  <h:form>
+  <p:panel id="pnl" header="Project Basic Information" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">  
+  
+  
+                 <b>Project Title: </b>#{projectBean.project.title}
+                 <p><b>More info:</b>#{projectBean.project.description} </p>
+           
+    </p:panel>  
+  <p></p>
+  <p:panel id="pnl4" header="Decision Makers Information" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+    <p:dataTable var="user" value="#{projectBean.dm}" border="0" 
+  	id="DmTableFinal" width="100%"> 
+  	<f:facet name="header">  
+            Final Decision Makers Table
+  </f:facet> 
+  <p:column headerText="Username">  
+            #{user.username}  
+        </p:column>  
+  
+        <p:column headerText="Name">  
+            #{user.name}  
+        </p:column>  
+  
+        <p:column headerText="Surname" >  
+            #{user.surname}  
+        </p:column> 
+  	</p:dataTable> 
+    </p:panel>
+    <p></p>
+    <p:panel id="pnl3" header="Alternatives Information" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+    <p:dataTable var="alternative" value="#{projectBean.alternatives}" border="0" 
+  	id="altTableFinal" width="100%"> 
+  	<f:facet name="header">  
+            Final Alternatives Table 
+  </f:facet> 
+  <p:column align="center">
+  #{alternative.name}</p:column> 
+  	</p:dataTable> 
+    </p:panel>
+    </h:form>
+  
+   <h:form id="form2">
+  <p:dataTable var="criterio" value="#{projectBean.criteria}" border="0" 
+  id="critTable" width="100%" rowKey="#{criterio.criteriaID}"  
+                 selection="#{projectBean.selectedCrit}" selectionMode="single">
+  <f:facet name="header">  
+            Add Criteria 
+  </f:facet>  
+  <p:column align="center">
+  <f:facet name="header">  
+                Name  
+            </f:facet> 
+  #{criterio.name}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Interval  
+            </f:facet> 
+            #{criterio.intervals}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Best Value  
+            </f:facet> 
+            #{criterio.best}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Worst value  
+            </f:facet> #{criterio.worst}</p:column>
+    <p:column> 
+    <f:facet name="header">  
+                Scale  
+            </f:facet>  
+        <p:dataList value="#{criterio.scale}" var="scale" itemType="disc">  
+    	#{scale.string}
+		</p:dataList>                 
+    </p:column>
+  </p:dataTable>
+  <p></p>
+ 	<p:commandButton value="delete selected" update="critTable" action="#{projectBean.deleteCriterio}" />
+ 
+  <table>
+  <tr>
+  <th align="center"><b>#{msgs.insertName} </b></th>
+  	<th align="center"><b>#{msgs.bestVal} </b></th>
+  	<th align="center"><b>#{msgs.worstVal} </b></th>
+  	<th align="center"><b>Is Quantitative: </b></th>
+  	<th align="center"><b>#{msgs.insertIntervals} </b></th>
+  	</tr>
+  	<tr>
+  	<td align="center"><p:inputText value="#{projectBean.criterion.name}" id="criterio_name" size="20"/></td>
+  	<td align="center"><p:inputText value="#{projectBean.criterion.best}" id="best" size="2" disabled="#{!projectBean.criterion.quantitative}"/></td>
+  	<td align="center"><p:inputText value="#{projectBean.criterion.worst}" id="worst" size="2" disabled="#{!projectBean.criterion.quantitative}"/></td>
+  	<td align="center"><p:selectBooleanButton value="#{projectBean.criterion.quantitative}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close">  
+            <p:ajax update="intervals best worst scaleString add1 scaleList" listener="#{projectBean.deleteScales}"/>  
+        </p:selectBooleanButton>  </td>
+  	<td align="center"><p:inputText value="#{projectBean.criterion.intervals}" id="intervals" size="2" disabled="#{!projectBean.criterion.quantitative}"/></td>
+  </tr>
+  <tr><td><p:inputText value="#{projectBean.scaleString}" id="scaleString" size="20" disabled="#{projectBean.criterion.quantitative}"/></td>
+  <td><p:commandButton id="add1" value="#{msgs.add }" update="critTable,criterio_name,intervals,best,worst,scaleString,scaleList" action="#{projectBean.addScale}" disabled="#{projectBean.criterion.quantitative}"/></td></tr>
+  <tr>
+  <td>
+   <p:orderList value="#{projectBean.scales}" var="scales" controlsLocation="none" iconOnly="true" itemLabel="#{scales}"  
+                    itemValue="#{scales}" id="scaleList" disabled="#{projectBean.criterion.quantitative}"/>  
+  </td>
+  </tr>
+  <tr><td><p:commandButton value="#{msgs.addCrit }" update="critTable,criterio_name,intervals,best,worst,scaleList" action="#{projectBean.addCriterio}"/>
+ 
+
+  </td></tr>
+   <tr><td> 
+   <p:commandButton value="done" onclick="dlg11.show()" type="button"/>
+      </td></tr>
+  </table>
+  <p:commandButton id="cancelProject" value="#{msgs.cancel_project}" onclick="dlg9.show()" type="button"/> 
+     
+     <p:dialog id="modalDialog9" header="#{msgs.require_confirm}" widgetVar="dlg9" height="100">
+     #{msgs.user_confirm}
+     <p:commandButton id="confirm9" value="#{msgs.yes}" update="step4" oncomplete="dlg9.hide()"  
+                    action="#{projectBean.cancelProjectCreation}" ajax="false" immediate="true"/>  
+        <p:commandButton id="decline9" value="#{msgs.no}" onclick="dlg9.hide()" type="button" /> 
+     </p:dialog>
+  <p:dialog id="modalDialog11" header="#{msgs.require_confirm}" widgetVar="dlg11" height="100">
+  #{msgs.crit_confirm}
+  <p:commandButton id="confirm11" value="Yes Sure" update="step2" oncomplete="dlg11.hide()"  
+                    action="#{projectBean.criteriaDone}" ajax="false"/>  
+        <p:commandButton id="decline11" value="Not Yet" onclick="dlg11.hide()" type="button" />  
+  </p:dialog>
+</h:form> 
+</ui:fragment>
+
+<ui:fragment rendered="#{projectBean.finish==1}" id="final">
+<h:form>
+  <p:panel id="pnl" header="Project Basic Information" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">  
+  
+  				<table>
+  				<tr>
+  				<td>
+                 <b>Project Title: </b></td><td align="center">#{projectBean.project.title}</td>
+                 </tr>
+                 <tr>
+                 <td><b>Project Description: </b></td><td align="center">#{projectBean.project.description}</td>
+                 </tr>
+                 </table>
+           
+    </p:panel> 
+    <p></p> 
+    <p:panel id="pnl2" header="Criteria Information" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">  
+  
+  <p:dataTable var="criterio" value="#{projectBean.criteria}" border="0" 
+  id="critTableFinal" width="100%">
+  <f:facet name="header">  
+            Final Criteria Table 
+  </f:facet>  
+  <p:column align="center">
+  <f:facet name="header">  
+                Name  
+            </f:facet> 
+  #{criterio.name}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Interval  
+            </f:facet> 
+            #{criterio.intervals}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Best Value  
+            </f:facet> 
+            #{criterio.best}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Worst value  
+            </f:facet> #{criterio.worst}</p:column>
+            <p:column>
+  <f:facet name="header">  
+                Scale  
+            </f:facet>
+            <p:dataList value="#{criterio.scale}" var="scale" itemType="disc">  
+    		#{scale.string}  
+		</p:dataList></p:column>
+  </p:dataTable>
+           
+    </p:panel> 
+    <p></p>
+    <p:panel id="pnl3" header="Alternatives Information" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+    <p:dataTable var="alternative" value="#{projectBean.alternatives}" border="0" 
+  	id="altTableFinal" width="100%"> 
+  	<f:facet name="header">  
+            Final Alternatives Table 
+  </f:facet> 
+  <p:column align="center">
+  #{alternative.name}</p:column> 
+  	</p:dataTable> 
+    </p:panel>
+    <p></p>
+    <p:panel id="pnl4" header="Decision Makers Information" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">
+    <p:dataTable var="user" value="#{projectBean.dm}" border="0" 
+  	id="DmTableFinal" width="100%"> 
+  	<f:facet name="header">  
+            Final Decision Makers Table
+  </f:facet> 
+  <p:column headerText="Username">  
+            #{user.username}  
+        </p:column>  
+  
+        <p:column headerText="Name">  
+            #{user.name}  
+        </p:column>  
+  
+        <p:column headerText="Surname" >  
+            #{user.surname}  
+        </p:column> 
+  	</p:dataTable> 
+    </p:panel>
+   <p:commandButton id="confirmfin" value="Set Satisfaction Problem later" action="#{projectBean.finish}" ajax="false"/>
+   <p:commandButton id="confirmnew" value="Set Satisfaction Problem now" action="#{projectBean.finishAndSetSat}" ajax="false"/>  
+   <p:commandButton id="cancelProject" value="#{msgs.cancel_project}" onclick="dlg10.show()" type="button"/> 
+     
+     <p:dialog id="modalDialog10" header="#{msgs.require_confirm}" widgetVar="dlg10" height="100">
+     #{msgs.user_confirm}
+     <p:commandButton id="confirm10" value="#{msgs.yes}" update="step4" oncomplete="dlg10.hide()"  
+                    action="#{projectBean.cancelProjectCreation}" ajax="false" immediate="true"/>  
+        <p:commandButton id="decline10" value="#{msgs.no}" onclick="dlg10.hide()" type="button" /> 
+     </p:dialog>
+  </h:form>
+</ui:fragment>
+</ui:fragment>
+<ui:fragment rendered="#{!userBean.user.admin}">
+<h2>#{msgs.unauthorized}</h2>
+</ui:fragment>
+</p:panel>
+	
+	</ui:define>
+</ui:composition>

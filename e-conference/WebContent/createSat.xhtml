@@ -1,0 +1,69 @@
+<ui:composition xmlns="//www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template3.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="top_title"><h1>#{msgs.createSat}</h1></ui:define>
+	<ui:define name="main_view">  
+		<h:form id="form2">
+  <p:dataTable var="criterio" value="#{projectBean.criteria}" border="0" 
+  id="critTable" width="100%" rowKey="#{criterio.criteriaID}"  
+                 selection="#{projectBean.selectedCrit}" selectionMode="single">
+  <f:facet name="header">  
+            Add Criteria 
+  </f:facet>  
+  <p:column align="center">
+  <f:facet name="header">  
+                Name  
+            </f:facet> 
+  #{criterio.name}</p:column>
+  <p:column> 
+    <f:facet name="header">  
+                Scale  
+            </f:facet>  
+        <p:dataList value="#{criterio.scale}" var="scale" itemType="disc">  
+    	#{scale.string}
+		</p:dataList>                 
+    </p:column>
+  </p:dataTable>
+  <p></p>
+ 	<p:commandButton value="delete selected" update="critTable" action="#{projectBean.deleteCriterio}" />
+ 	<p></p>
+ 	<p:fieldset legend="Add new Criterio">
+ 
+  <table>
+  	<tr>
+  	<td align="center"><b>#{msgs.insertName}</b></td><td><p:inputText value="#{projectBean.criterion.name}" id="criterio_name" size="20"/><p:spacer width="20" height="20" /></td>
+  	</tr>
+  	<tr>
+  	<td><b>Insert Scale:</b></td><td><p:inputText value="#{projectBean.scaleString}" id="scaleString" size="20" /><p:spacer width="20" height="20" /> <p:commandButton id="add1" value="#{msgs.addScale}" update="critTable,criterio_name,scaleString,scaleList" action="#{projectBean.addScale}"/></td>
+  	</tr>
+  	<tr>
+  	<td><b>Added Scales:</b></td><td><p:orderList value="#{projectBean.scales}" var="scales" controlsLocation="none" iconOnly="true" itemLabel="#{scales}" itemValue="#{scales}" id="scaleList"/>  
+  </td>
+  </tr>
+  <tr><td><p:commandButton value="#{msgs.addCrit }" update="critTable,criterio_name,scaleList" action="#{projectBean.addCriterio}"/>
+  </td></tr>
+ </table>
+</p:fieldset>
+
+   <p:commandButton value="done" onclick="dlg11.show()" type="button"/>
+  <p:commandButton id="cancelProject" value="#{msgs.cancel_project}" onclick="dlg9.show()" type="button"/> 
+     
+     <p:dialog id="modalDialog9" header="#{msgs.require_confirm}" widgetVar="dlg9" height="100">
+     #{msgs.user_confirm}
+     <p:commandButton id="confirm9" value="#{msgs.yes}" oncomplete="dlg9.hide()"  
+                    action="#{projectBean.cancelProjectCreation}" ajax="false" immediate="true"/>  
+        <p:commandButton id="decline9" value="#{msgs.no}" onclick="dlg9.hide()" type="button" /> 
+     </p:dialog>
+  <p:dialog id="modalDialog11" header="#{msgs.require_confirm}" widgetVar="dlg11" height="100">
+  #{msgs.crit_confirm}
+  <p:commandButton id="confirm11" value="Yes Sure" oncomplete="dlg11.hide()"  
+                    action="#{projectBean.satCritDone}" ajax="false"/>  
+        <p:commandButton id="decline11" value="Not Yet" onclick="dlg11.hide()" type="button" />  
+  </p:dialog>
+</h:form> 
+	</ui:define>
+</ui:composition>

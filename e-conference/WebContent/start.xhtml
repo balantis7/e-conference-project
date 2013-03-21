@@ -1,0 +1,23 @@
+<ui:composition xmlns="//www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/template1.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="top_title"><h1>#{msgs.welcome}</h1></ui:define>
+	<ui:define name="top_menu">
+	<li><a href="#">#{msgs.user}: #{userBean.user.username}</a>
+	<ul>
+		<li><h:form>
+		<h:commandLink id="profile" value="#{msgs.profile}" action="#{userBean.showProfile}"/></h:form></li>
+		<li><h:form>
+		<h:commandLink id="logout" value="#{msgs.logout}" action="#{userBean.logout}"/></h:form></li>
+	</ul></li>
+	<ui:fragment rendered="#{userBean.user.admin==1}">
+		<li><a href="create.jsf">#{msgs.new_case}</a></li>
+	</ui:fragment>
+	</ui:define>
+	<ui:define name="main_view">
+	#{msgs.welcome_message}
+	</ui:define>
+</ui:composition>

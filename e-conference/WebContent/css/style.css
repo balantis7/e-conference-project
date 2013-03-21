@@ -1,0 +1,279 @@
+/* Created by http://freehtml5templates.com */
+
+/* basics */
+
+/* reset */
+* {
+margin: 0;
+padding: 0;
+}
+
+error { font-weight: bold;
+         color: red;
+}
+
+/* render html5 elements as block */
+header, footer, section, aside, nav, article {
+display: block;
+}
+
+/* standard body */
+body {
+margin: 0 auto;
+width: 100%;
+font: 14px/20px "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+background: #878787;/* #a9a9a9; url("../images/bg.gif") repeat;*/
+}
+
+/* standard alignments */
+.alignleft {
+float: left;
+}
+
+img.alignleft {
+margin: 5px 10px 0 0; 
+}
+
+.alignright {
+float: right;
+}
+
+img.alignright {
+margin: 5px 0 0 10px; 
+}
+
+.center {
+text-align: center;
+}
+
+.flags {
+background: url(flags.png) no-repeat;
+height:16px;
+width:16px;
+}
+
+/* Hx tags */
+
+h1 {
+font-size: 40px;
+font-family: Garamond, Georgia, Times, "Times New Roman", serif;
+padding: 20px 0;
+}
+
+h2 {
+font-size: 24px;
+padding: 20px 0;
+}
+
+h2 a {
+color: #000000;
+}
+
+h2 a:hover {
+color: #1EBCA7;
+}
+
+h3 {
+font-size: 18px;
+color: #000;
+padding-bottom: 3px;
+border-bottom: #000000 2px solid;
+margin-bottom: 10px;
+}
+
+p {
+padding-bottom: 20px;
+}
+
+/* header */
+
+header {
+margin-top: 10px;
+/* background: #fff url("../images/introimage.png"); */
+/* /* height: 220px; for IE */ */
+/* /* min-height: 220px; for not-IE */ */
+/* -webkit-box-shadow: 3px 3px 7px #BCBBBB; #777; */
+/* -moz-box-shadow: 3px 3px 7px #BCBBBB; #777; */
+}
+
+header h1, header p {
+position: relative;
+z-index: 9999;
+width: 600px;
+}
+
+header h1 {
+padding: 20px 0 20px 20px;
+color: #000000;
+}
+
+header p {
+padding-left: 20px;
+}
+
+/* nav */
+
+nav {
+background: #000;
+margin: 0 auto;
+width: 960px;
+display: block;
+float: left;
+-webkit-box-shadow: 3px 3px 7px #BCBBBB; /*#777;*/
+-moz-box-shadow: 3px 3px 7px #BCBBBB; /*#777;*/
+opacity:	0.6;
+}
+
+nav .menu {
+font-size: 16px;
+font-weight: bold;
+margin-left: 12px;
+}
+
+nav .menu ul {
+list-style: none;
+margin: 0;
+}
+
+nav .menu li {
+float: left;
+position: relative;
+}
+
+nav .menu a {
+display: block;
+text-decoration: none;
+color: #FFF;
+padding: 0 30px;
+line-height: 38px;
+width:	70px;
+}
+
+nav .menu a:hover {
+color: #1EBCA7;
+}
+
+/* nav 1-level dropdowns */
+nav .menu li ul { 
+display: none; 
+}
+
+nav .menu ul li a {
+display: block;
+text-decoration: none;
+color: #FFF;
+background: #000;
+margin-left: 1px;
+white-space: nowrap;
+}
+nav .menu ul li a:hover { 
+background: #000000; 
+}
+
+nav .menu li:hover ul {
+display: block;
+position: absolute;
+}
+
+nav .menu li:hover li {
+float: none;
+}
+
+nav .menu li:hover a { 
+background: #000000; 
+}
+
+nav .menu li:hover li a:hover { 
+background: #000000; 
+}
+
+/* content and sidebar layout */
+
+#content {
+float: right; 
+width: 700px; 
+margin:10px 0 10px 0; 
+padding:5px 20px 5px 20px;
+background-color: #fff;
+-webkit-box-shadow: 3px 3px 7px #BCBBBB; /*#777;*/
+-moz-box-shadow: 3px 3px 7px #BCBBBB; /*#777;*/
+}
+
+aside {
+float: left;
+text-align: left; 
+width: 300px; 
+margin:0; 
+padding:0;
+}
+
+/* article */
+.articlecontent p a {
+color: #000000;
+}
+
+.articlecontent p a:hover {
+color: #1EBCA7;
+}
+
+/* box shadow on pics */
+.articlecontent img {
+-webkit-box-shadow: 3px 3px 7px #777;
+-moz-box-shadow: 3px 3px 7px #777;
+}
+
+/* sidebar */
+aside section {
+margin: 10px 0 0 0;
+padding: 10px 15px;
+background-color: #fff;
+-webkit-box-shadow: 3px 3px 7px #BCBBBB; /*#777*/;
+-moz-box-shadow: 3px 3px 7px #BCBBBB; /*#777;*/
+}
+
+aside section ul {
+margin: 0 0 0 20px;
+list-style-image: url(../images/redarrow.gif);
+color: #C10909;
+}
+
+aside section ul li a {
+display: block;
+text-decoration: none;
+color: #000;
+}
+
+aside section ul li a:hover {
+background-color: #1EBCA7;
+color: #fff;
+}
+
+/* footer */
+footer {
+clear: both;
+float: left;
+background: #222;
+width: 100%;
+color: #fff;
+margin-bottom: 5px;
+-webkit-box-shadow: 3px 3px 7px #BCBBBB; /*#777;*/
+-moz-box-shadow: 3px 3px 7px #BCBBBB; /*#777;*/
+opacity: 0.8;
+}
+
+footer p {
+text-align: right;
+font-size: 11px;
+padding-right: 20px;
+}
+
+footer a {
+color: #999;
+}
+
+footer a:hover {
+color: #FFF;
+text-decoration: none;
+}
+
+

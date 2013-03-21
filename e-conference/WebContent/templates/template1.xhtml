@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui">
+   <f:view
+locale="#{setLanguage.locale}">   
+<h:head>
+	  <meta http-equiv="content-type" content="text/html charset=utf-8"/>
+	<ui:insert name="page_title">To The Point</ui:insert>
+	<link rel="stylesheet" href="./css/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" type=".css/text/css" href="print.css" media="print" />
+	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<ui:insert name="script"></ui:insert>
+</h:head>
+	<h:body>
+		<header>
+			<ui:insert name="top_title"><h1>To The Point</h1></ui:insert>
+			<ui:insert name="top_text">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
+			</ui:insert>
+		</header>
+	<ui:insert name="nav_menu">
+	<nav><!-- top nav -->
+		<div class="menu">
+			<ul>
+				<li><a href="start.jsf">Home</a></li>
+				<ui:insert name="top_menu">
+				<li><a href="#">About</a>
+			    <ul>
+   					<li><a href="#">The Team</a></li>
+   					<li><a href="#">History</a></li>
+   					<li><a href="">Vision</a></li>
+   				</ul>
+  			</li>
+				<li><a href="#">Products</a>
+					<ul>
+						<li><a href="#">Widgets</a></li>
+						<li><a href="#">Wodgets</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Contact Us</a></li>
+				</ui:insert>
+				<li><h:form style="margin-left: 350px">
+					<h:commandLink id="changeLang" 
+					actionListener="#{setLanguage.swapLocale}" 
+					immediate="true"
+					style="width: 2px; border: none">
+					<h:graphicImage id="flags"
+   					alt="english-greek flag"
+   					url="/images/flags.png">
+					</h:graphicImage></h:commandLink>
+					</h:form></li>
+			</ul>
+		</div>
+	</nav><!-- end of top nav -->
+	</ui:insert>
+	<ui:insert name="main_content">
+	<div id="content">
+				<ui:insert name="main_view">
+				<article class="articlecontent">
+					<h2><a href="#">This is the title of your article</a></h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod tellus eu orci imperdiet nec rutrum lacus blandit. <a href="#">Cras enim nibh, sodales ultricies elementum vel</a>, fermentum id tellus. Proin metus odio, ultricies eu pharetra dictum, laoreet id odio. Curabitur in odio augue. Morbi congue auctor interdum. Phasellus sit amet metus justo. Phasellus vitae tellus orci, at elementum ipsum. In in quam eget diam adipiscing condimentum. Maecenas gravida diam vitae nisi convallis vulputate quis sit amet nibh. Nullam ut velit tortor. Curabitur ut elit id nisl volutpat consectetur ac ac lorem. Quisque non elit et elit lacinia lobortis nec a velit. Sed ac nisl sed enim consequat porttitor.</p>
+					
+						<img src="images/building.jpg" alt="building" class="alignleft" />	<p>Pellentesque ut sapien arcu, egestas mollis massa. Fusce lectus leo, fringilla at aliquet sit amet, volutpat non erat. Aenean molestie nibh vitae turpis venenatis vel accumsan nunc tincidunt. Suspendisse id purus vel felis auctor mattis non ac erat. Pellentesque sodales venenatis condimentum. Aliquam sit amet nibh nisi, ut pulvinar est. Donec hendrerit fringilla ligula, ac rutrum nulla bibendum id. Cras sapien ligula, tincidunt eget euismod nec, ultricies eu augue. Nulla vitae velit sollicitudin magna mattis eleifend. Nam enim justo, vulputate vitae pretium ac, rutrum at turpis. Aenean id magna neque. Sed rhoncus aliquet viverra.</p>
+
+				</article>
+
+				<article class="articlecontent">
+					<h2><a href="#">Here's another article title</a></h2>
+					<img src="images/tools.png" alt="tools" class="alignright" /><p>Vivamus vitae nulla dolor. Suspendisse eu lacinia justo. Vestibulum a felis ante, non aliquam leo. Aliquam eleifend, est viverra semper luctus, metus purus commodo elit, a elementum nisi lectus vel magna. Praesent faucibus leo sit amet arcu vehicula sed facilisis eros aliquet. Etiam sodales, enim sit amet mollis vestibulum, ipsum sapien accumsan lectus, eget ultricies arcu velit ut diam. Aenean fermentum luctus nulla, eu malesuada urna consequat in. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque massa lacus, sodales id facilisis ac, lobortis sed arcu. </p>
+				</article>
+				</ui:insert>
+		</div>
+	</ui:insert>
+		
+		<aside>
+		<ui:insert name="section1">
+			<section>
+				<h3>Categories</h3>
+				<ul>
+					<li><a href="#">Widget Colors</a></li>
+					<li><a href="#">Widget Sizes</a></li>
+					<li><a href="#">Compare Widgets</a></li>
+					<li><a href="#">Pricing</a></li>
+					<li><a href="#">Features</a></li>
+				</ul>
+			</section>
+		</ui:insert>
+			
+		<ui:insert name="section2">
+			<section>
+				<h3>Sponsors</h3>
+					<img src="images/ad125.jpg" alt="ad" /> <img src="images/ad125.jpg" alt="ad" />
+					<br />
+					<img src="images/ad125.jpg" alt="ad" /> <img src="images/ad125.jpg" alt="ad" />
+					<br /><br />
+			</section>
+		</ui:insert>
+		
+		<ui:insert name="section3">		
+			<section>
+				<h3>Connect With Us</h3>
+				<ul>
+					<li><a href="#">Twitter</a></li>
+					<li><a href="#">Facebook</a></li>
+					<li><a href="#">Google Buzz</a></li>
+				</ul>
+			</section>
+		</ui:insert>
+		
+		<ui:insert name="section4">
+			<section>
+				<h3>Recent Articles</h3>
+					<ul>
+						<li><a href="#">Which Widget Do I Need?</a></li>
+						<li><a href="#">When Widgets Go Mobile</a></li>
+					</ul>
+			</section>
+		</ui:insert>
+			
+		</aside>
+
+	<footer>
+		<br />
+		<p>&copy; 2011 <a href="#" title="Owner">C. Kanellopoulos</a></p>
+	</footer>
+<!-- Free template created by http://freehtml5templates.com -->
+</h:body>
+</f:view>
+</html>

@@ -1,0 +1,281 @@
+<ui:composition xmlns="//www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template3.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="top_title"><h1>#{msgs.myprojects}</h1></ui:define>
+	<ui:define name="main_view">  
+	<p:tabView id="tabView" orientation="top" effect="fade" effectDuration="normal" activeIndex="#{userBean.tabIndex}" dynamic="true">  
+	<p:ajax event="tabChange" listener="#{projectBean.onTabChange}" />
+    <p:tab id="tab1" title="#{msgs.new_m}">  
+       <p:tabView id="tabView" dynamic="true" var="project" value="#{userBean.projectsNew}" orientation="right" effect="fade" effectDuration="normal">  
+    <p:tab id="projectNewTab" title="#{project.title}">  
+        <h:form>
+  <p:panel id="pnl" header="Project Basic Information" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel">  
+  
+  				<table>
+  				<tr>
+  				<td>
+                 <b>Project Title: </b></td><td align="center">#{project.title}</td>
+                 </tr>
+                 <tr>
+                 <td><b>Project Description: </b></td><td align="center">#{project.description}</td>
+                 </tr>
+                 </table>
+           
+    </p:panel> 
+    <p></p> 
+    <p:panel id="pnl2" header="Criteria Information" collapsed="true" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel2">  
+  
+  <p:dataTable var="criterio" value="#{project.criteria}" border="0" 
+  id="critTableFinal" width="100%">
+  <f:facet name="header">  
+            Final Criteria Table 
+  </f:facet>  
+  <p:column align="center">
+  <f:facet name="header">  
+                Name  
+            </f:facet> 
+  #{criterio.name}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Interval  
+            </f:facet> 
+            #{criterio.intervals}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Best Value  
+            </f:facet> 
+            #{criterio.best}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Worst value  
+            </f:facet> #{criterio.worst}</p:column>
+            <p:column>
+  <f:facet name="header">  
+                Scale  
+            </f:facet>
+            <p:dataList value="#{criterio.scale}" var="scale" itemType="disc">  
+    		#{scale.string}  
+		</p:dataList></p:column>
+  </p:dataTable>
+           
+    </p:panel> 
+    <p></p>
+    <p:panel id="pnl3" header="Alternatives Information" collapsed="true" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel3">
+    <p:dataTable var="alternative" value="#{project.alternatives}" border="0" 
+  	id="altTableFinal" width="100%"> 
+  	<f:facet name="header">  
+            Final Alternatives Table 
+  </f:facet> 
+  <p:column align="center">
+  #{alternative.name}</p:column> 
+  	</p:dataTable> 
+    </p:panel>
+    <p></p>
+    <p:panel id="pnl4" header="Decision Makers Information" collapsed="true" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel4">
+    <p:dataTable var="user" value="#{project.decisionMakers}" border="0" 
+  	id="DmTableFinal" width="100%"> 
+  	<f:facet name="header">  
+            Final Decision Makers Table
+  </f:facet> 
+  <p:column headerText="#{msgs.username}">  
+            #{user.username}  
+        </p:column> 
+  <p:column headerText="#{msgs.weight}">  
+            #{user.weight}  
+        </p:column> 
+  	</p:dataTable> 
+    </p:panel>
+    <p:commandButton value="rate" action="#{projectBean.viewRate}" ajax="false">
+	<f:param name="projectID" value="#{project.decisionProjectID}" />
+</p:commandButton>
+  </h:form>
+        
+    </p:tab>   
+</p:tabView>   
+    </p:tab>  
+  
+    <p:tab id="tab2" title="#{msgs.pending}">  
+        <p:tabView id="tabView2" dynamic="true" var="project" value="#{userBean.projectsPending}" orientation="right" effect="fade" effectDuration="normal">  
+    <p:tab id="projectPendingTab" title="#{project.title}">  
+        <h:form>
+  <p:panel id="pnl5" header="Project Basic Information" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel5">  
+  
+  				<table>
+  				<tr>
+  				<td>
+                 <b>Project Title: </b></td><td align="center">#{project.title}</td>
+                 </tr>
+                 <tr>
+                 <td><b>Project Description: </b></td><td align="center">#{project.description}</td>
+                 </tr>
+                 </table>
+           
+    </p:panel> 
+    <p></p> 
+    <p:panel id="pnl6" header="Criteria Information" collapsed="true" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel6">  
+  
+  <p:dataTable var="criterio" value="#{project.criteria}" border="0" 
+  id="critTableFinal" width="100%">
+  <f:facet name="header">  
+            Final Criteria Table 
+  </f:facet>  
+  <p:column align="center">
+  <f:facet name="header">  
+                Name  
+            </f:facet> 
+  #{criterio.name}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Interval  
+            </f:facet> 
+            #{criterio.intervals}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Best Value  
+            </f:facet> 
+            #{criterio.best}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Worst value  
+            </f:facet> #{criterio.worst}</p:column>
+            <p:column>
+  <f:facet name="header">  
+                Scale  
+            </f:facet>
+            <p:dataList value="#{criterio.scale}" var="scale" itemType="disc">  
+    		#{scale.string}  
+		</p:dataList></p:column>
+  </p:dataTable>
+           
+    </p:panel> 
+    <p></p>
+    <p:panel id="pnl7" header="Alternatives Information" collapsed="true" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel7">
+    <p:dataTable var="alternative" value="#{project.alternatives}" border="0" 
+  	id="altTableFinal" width="100%"> 
+  	<f:facet name="header">  
+            Final Alternatives Table 
+  </f:facet> 
+  <p:column align="center">
+  #{alternative.name}</p:column> 
+  	</p:dataTable> 
+    </p:panel>
+    <p></p>
+    <p:panel id="pnl8" header="Decision Makers Information" collapsed="true" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel8">
+    <p:dataTable var="user" value="#{project.decisionMakers}" border="0" 
+  	id="DmTableFinal" width="100%"> 
+  	<f:facet name="header">  
+            Final Decision Makers Table
+  </f:facet> 
+  <p:column headerText="#{msgs.username}">  
+            #{user.username}  
+        </p:column> 
+  <p:column headerText="#{msgs.weight}">  
+            #{user.weight}  
+        </p:column> 
+  	</p:dataTable> 
+    </p:panel>
+    <p:commandButton value="rate" action="#{projectBean.viewRate}" ajax="false">
+	<f:param name="projectID" value="#{project.decisionProjectID}" />
+	</p:commandButton>
+  </h:form>
+        
+    </p:tab>   
+</p:tabView>   
+    </p:tab>  
+  
+    <p:tab id="tab3" title="#{msgs.finished}">  
+               <p:tabView id="tabView3" dynamic="true" var="project" value="#{userBean.projectsFinish}" orientation="right" effect="fade" effectDuration="normal">  
+    <p:tab id="projectFinishTab" title="#{project.title}">  
+        <h:form>
+  <p:panel id="pnl9" header="Project Basic Information" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel9">  
+  
+  				<table>
+  				<tr>
+  				<td>
+                 <b>Project Title: </b></td><td align="center">#{project.title}</td>
+                 </tr>
+                 <tr>
+                 <td><b>Project Description: </b></td><td align="center">#{project.description}</td>
+                 </tr>
+                 </table>
+           
+    </p:panel> 
+    <p></p> 
+    <p:panel id="pnl10" header="Criteria Information" collapsed="true" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel10">  
+  
+  <p:dataTable var="criterio" value="#{project.criteria}" border="0" 
+  id="critTableFinal" width="100%">
+  <f:facet name="header">  
+            Final Criteria Table 
+  </f:facet>  
+  <p:column align="center">
+  <f:facet name="header">  
+                Name  
+            </f:facet> 
+  #{criterio.name}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Interval  
+            </f:facet> 
+            #{criterio.intervals}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Best Value  
+            </f:facet> 
+            #{criterio.best}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Worst value  
+            </f:facet> #{criterio.worst}</p:column>
+  <p:column>
+  <f:facet name="header">  
+                Scale  
+            </f:facet>
+            <p:dataList value="#{criterio.scale}" var="scale" itemType="disc">  
+    		#{scale.string}  
+		</p:dataList></p:column>
+  </p:dataTable>
+           
+    </p:panel> 
+    <p></p>
+    <p:panel id="pnl11" header="Alternatives Information" collapsed="true" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel11">
+    <p:dataTable var="alternative" value="#{project.alternatives}" border="0" 
+  	id="altTableFinal" width="100%"> 
+  	<f:facet name="header">  
+            Final Alternatives Table 
+  </f:facet> 
+  <p:column align="center">
+  #{alternative.name}</p:column> 
+  	</p:dataTable> 
+    </p:panel>
+    <p></p>
+    <p:panel id="pnl12" header="Decision Makers Information" collapsed="true" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="2000" widgetVar="panel12">
+    <p:dataTable var="user" value="#{project.decisionMakers}" border="0" 
+  	id="DmTableFinal" width="100%"> 
+  	<f:facet name="header">  
+            Final Decision Makers Table
+  </f:facet> 
+  <p:column headerText="#{msgs.username}">  
+            #{user.username}  
+        </p:column> 
+  <p:column headerText="#{msgs.weight}">  
+            #{user.weight}  
+        </p:column>
+  	</p:dataTable> 
+    </p:panel>
+    <p:commandButton value="show rates" action="#{projectBean.showRates}" ajax="false">
+	<f:param name="projectID" value="#{project.decisionProjectID}" />
+	</p:commandButton>
+  </h:form>
+        
+    </p:tab>   
+</p:tabView> 
+    </p:tab>  
+  
+</p:tabView>  
+	</ui:define>
+</ui:composition>

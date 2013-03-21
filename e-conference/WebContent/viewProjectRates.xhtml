@@ -1,0 +1,38 @@
+<ui:composition xmlns="//www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template3.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="top_title"><h1>#{msgs.rate}</h1></ui:define>
+	<ui:define name="main_view">  
+	<p>#{msgs.rate_instr}</p>
+		<h:form> 
+		<table width="70%"> 
+		<tr>
+		<th style="border:2px; background-color:#B2BDCB">alternatives:</th>
+		<ui:repeat var="criterio" value="#{projectBean.project.criteria}" varStatus="status1">
+        <th style="border:2px; background-color:#B2BDCB"><h:outputText value="#{criterio.name}:" /></th>
+        </ui:repeat>
+        <th style="border:2px; background-color:#B2BDCB"><h:outputText value="#{msgs.rank}:" /></th>
+        </tr>
+  	<ui:repeat var="alternatives" value="#{projectBean.project.alternatives}" varStatus="status">
+  	<tr>
+  	<td style="border:2px; background-color:#B2BDCB"><b>#{alternatives.name}:</b></td>
+        <ui:repeat var="criterio" value="#{projectBean.project.criteria}" varStatus="status1">
+        <td>
+        <h:outputText value="#{criterio.scale[projectBean.ratings[status.index][status1.index]].string}" rendered="#{!criterio.quantitative}"/>
+         <h:outputText value="#{projectBean.ratings[status.index][status1.index]}" rendered="#{criterio.quantitative}"/>
+       	</td>
+  		</ui:repeat>
+  		<td>#{projectBean.ranks[status.index]}</td>
+  	</tr> 
+  	</ui:repeat> 
+  	</table>
+  	<p/>
+  	<p:commandButton value="UTA results" action="#{projectBean.viewUtaResults}" ajax="false" rendered="#{projectBean.project.utaDone}"/>  
+  	<p:commandButton value="run UTA" action="#{projectBean.runUTA}" ajax="false" rendered="#{!projectBean.project.utaDone}"/> 
+		</h:form>  
+	</ui:define>
+</ui:composition>

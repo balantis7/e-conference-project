@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf12847580307291" configfile="/e-conference/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="welcome.xhtml" x="122" y="178" id="pf13216062550833" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" outlinks="pf13216062550834 pf13227323423140" inlinks="pf13227323423140" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="redirect.xhtml" x="338" y="370" id="pf13216062550835" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf13280382233120" inlinks="pf13216062550834 pf13225554950571" path="/redirect.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="start.xhtml" x="338" y="754" id="pf13219624530331" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf13280382233121" path="/start.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="signup.xhtml" x="122" y="562" id="pf13225554950573" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf13225554950571" path="/signup.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="workspace.xhtml" x="554" y="754" id="pf13280382233122" referenceLink="//@navigationRule.5/@fromViewId|" inlinks="pf13280382233120 pf13280382233121 pf13280382233123" path="/workspace.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="create.xhtml" x="338" y="1138" id="pf13280382233124" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf13280382233123" path="/create.xhtml"/>
+  <links id="pf13216062550834" target="pf13216062550835" source="pf13216062550833" outcome="success"/>
+  <links id="pf13225554950571" target="pf13216062550835" source="pf13225554950573" outcome="success"/>
+  <links id="pf13280382233120" target="pf13280382233122" source="pf13216062550835" outcome="start"/>
+  <links id="pf13280382233121" target="pf13280382233122" source="pf13219624530331" outcome="success"/>
+  <links id="pf13280382233123" target="pf13280382233122" source="pf13280382233124" outcome="done"/>
+  <links id="pf13227323423140" target="pf13216062550833" source="pf13216062550833" outcome="loginError">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+</pageflow:Pageflow>

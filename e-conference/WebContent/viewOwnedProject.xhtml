@@ -1,0 +1,55 @@
+<ui:composition xmlns="//www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template3.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="top_title"><h1>#{msgs.rate}</h1></ui:define>
+	<ui:define name="main_view">  
+	<h:form>
+  	
+  	<p:dataGrid var="project" value="#{userBean.ownedProjects}" columns="3"  
+        rows="10" paginator="true"  
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+        rowsPerPageTemplate="4,8,16"> 
+        
+        <p:panel header="#{project.title}" toggleable="true" toggleSpeed="500" collapsed="true" style="text-align:center">  
+         
+        <p:dataTable id="dmList" value="#{project.decisionMakers}" var="dm" paginator="true" rows="10"  
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 rowsPerPageTemplate="5,10,15"> 
+                 <f:facet name="header">  
+            #{project.title}  
+        </f:facet>  
+  
+        <p:column>  
+            <f:facet name="header">  
+                <h:outputText value="#{msgs.username}" />  
+            </f:facet>  
+            <h:outputText value="#{dm.username}" />  
+        </p:column>  
+        <p:column>  
+            <f:facet name="header">  
+                <h:outputText value="#{msgs.weight}" />  
+            </f:facet>  
+            <h:outputText value="#{dm.weight}" />  
+        </p:column> 
+        <p:column>  
+            <f:facet name="header">  
+                <h:outputText value="Has finished rating" />  
+            </f:facet>  
+            <h:outputText value="#{dm.done}" />  
+        </p:column> 
+		</p:dataTable>  
+
+		<p:commandButton value="aggregate results" action="#{projectBean.aggregatePreferences}" rendered="#{project.usersDone}">                         
+               <f:param name="projectID" value="#{project.decisionProjectID}" /> 
+        </p:commandButton>
+     
+		</p:panel>
+    </p:dataGrid>  
+
+		</h:form>  
+	</ui:define>
+</ui:composition>

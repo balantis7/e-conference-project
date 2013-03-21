@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:p="http://primefaces.org/ui">
+   <f:view
+locale="#{setLanguage.locale}">   
+<h:head>
+	  <meta http-equiv="content-type" content="text/html charset=utf-8"/>
+	<ui:insert name="page_title">To The Point</ui:insert>
+	<link rel="stylesheet" href="./css/style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" type=".css/text/css" href="print.css" media="print" />
+	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<ui:insert name="script"></ui:insert>
+</h:head>
+	<h:body>
+	<p:layout fullPage="true">  
+   
+    <p:layoutUnit position="north" size="100">  
+    <header>
+			<ui:insert name="top_title"><h1>To The Point</h1></ui:insert>
+			<ui:insert name="top_text">
+			</ui:insert>
+		</header>   
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="south" size="80" resizable="true">  
+      <footer>
+		<br />
+		<p>Running PrimeFaces-3.2 on Mojarra-2.1.6 <p:spacer width="5%" height="10" /> &copy; 2012 <a href="mailto:balantis7@gmail.com" title="Owner">C. Kanellopoulos</a></p>
+	</footer>
+    </p:layoutUnit>  
+  	
+  	
+    <p:layoutUnit position="west" size="250" header="Left" resizable="true" collapsible="true"> 
+    <h:form>
+    <ui:insert name="side_menu">
+        <p:menu style="width:95%;">  
+        <p:submenu label="#{msgs.myProjects}">  
+            <p:menuitem value="#{msgs.new_m}(#{userBean.projectsNew.size().toString()})" action="#{userBean.viewProjects}" disabled="#{userBean.user.notLoggedIn}">
+            <f:param name="tabNumber" value="0" />
+            </p:menuitem> 
+            <p:menuitem value="#{msgs.pending}(#{userBean.projectsPending.size().toString()})" action="#{userBean.viewProjects}" disabled="#{userBean.user.notLoggedIn}">
+            <f:param name="tabNumber" value="1" />
+            </p:menuitem> 
+            <p:menuitem value="#{msgs.finished}(#{userBean.projectsFinish.size().toString()})" action="#{userBean.viewProjects}" disabled="#{userBean.user.notLoggedIn}">
+            <f:param name="tabNumber" value="2" />
+            </p:menuitem> 
+        </p:submenu>   
+        <p:submenu label="Navigations">  
+            <p:menuitem value="#{msgs.home}" action="workspace.jsf" icon="ui-icon-home" ajax="false"/>  
+            <p:menuitem value="My Projects" action="#{userBean.viewProjects}" icon="ui-icon-star" ajax="false" disabled="#{userBean.user.notLoggedIn}"/>  
+        </p:submenu>  
+    </p:menu>
+    <p:themeSwitcher style="width:150px" id="defaultSwitcher">  
+            <f:selectItem itemLabel="Choose Theme" itemValue="" />  
+            <f:selectItems value="#{themeSwitcherBean.themes}" />
+            <p:ajax listener="#{themeSwitcherBean.saveTheme}" />  
+        </p:themeSwitcher>
+    </ui:insert> 
+    </h:form>   
+    </p:layoutUnit>   
+  
+    <p:layoutUnit position="center" resizable="true"> 
+    <h:form>  
+    <p:menubar>  
+        <p:submenu label="#{msgs.user}: #{userBean.user.username}" icon="ui-icon-document">  
+        	<p:menuitem value="#{msgs.login}" url="login.jsf" rendered="#{userBean.user.notLoggedIn}" ajax="false"/>
+        	<p:menuitem value="#{msgs.signup}" action="#{userBean.showSignUp}" rendered="#{userBean.user.notLoggedIn}" ajax="false"/>
+            <p:menuitem value="#{msgs.profile}" action="#{userBean.showProfile}" disabled="#{userBean.user.notLoggedIn}" ajax="false"/> 
+            <p:separator />  
+            <p:menuitem id="logout" value="#{msgs.logout}" action="#{userBean.logout}" disabled="#{userBean.user.notLoggedIn}" ajax="false"/>  
+        </p:submenu>  
+  
+        <p:submenu label="Edit" icon="ui-icon-pencil">  
+            <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />  
+            <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />  
+        </p:submenu>  
+  
+        <p:submenu label="Actions" icon="ui-icon-gear">  
+        	<p:menuitem value="#{msgs.new_case}" url="create.jsf" disabled="#{!userBean.user.admin}" ajax="false"/>
+        	<p:menuitem value="#{msgs.userList}" action="#{userBean.viewUserList}" disabled="#{!userBean.user.admin}" ajax="false"/>
+        	<p:menuitem value="#{msgs.projectsOwned}" action="#{userBean.viewOwnedProjects}" disabled="#{!userBean.user.admin}" ajax="false"/>
+            <p:submenu label="Ajax" icon="ui-icon-refresh">  
+                <p:menuitem value="Save"  icon="ui-icon-disk"/>  
+                <p:menuitem value="Update"  icon="ui-icon-arrowrefresh-1-w"/>  
+            </p:submenu>  
+            <p:submenu label="Non-Ajax" icon="ui-icon-newwin">  
+                <p:menuitem value="Delete"  icon="ui-icon-close" ajax="false"/>  
+            </p:submenu>  
+        </p:submenu>  
+        
+        <p:submenu label="Help" icon="ui-icon-help">  
+            <p:menuitem value="Contents" url="#" />  
+            <p:submenu label="Search" icon="ui-icon-search">  
+                <p:submenu label="Text">  
+                    <p:menuitem value="Workspace" url="#" />  
+                </p:submenu>  
+                <p:menuitem value="File" url="#" />  
+            </p:submenu>  
+        </p:submenu>  
+  
+        <p:menuitem id="changeLang" 
+					actionListener="#{setLanguage.swapLocale}" 
+					immediate="true"
+					value="#{msgs.language}"
+					ajax="false">
+					</p:menuitem>
+    </p:menubar>  
+  
+</h:form>  
+		<ui:insert name="main_view">
+				
+		</ui:insert>  
+    </p:layoutUnit>  
+</p:layout>  	
+<!-- Free template created by http://freehtml5templates.com -->
+</h:body>
+</f:view>
+</html>

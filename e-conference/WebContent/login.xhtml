@@ -1,0 +1,49 @@
+<ui:composition xmlns="//www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template3.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="top_title"><h1>#{msgs.login}</h1></ui:define>
+	<ui:define name="main_view">  
+	<ui:fragment rendered="#{!userBean.retrievePass}">
+	<h:form> 
+    <p:panel header="#{msgs.login}">  
+    <h:panelGrid columns="2">  
+	#{msgs.username}:
+	<p:inputText value="#{userBean.user.username}"/>
+	#{msgs.password}:
+	<p:password value="#{userBean.user.password}" feedback="false"/>
+	<p:commandButton value="#{msgs.login}"
+	action="#{userBean.validateUser}"
+	ajax="false"/>
+	<p><p:commandLink id="forgetPass" action="#{userBean.forgetPass}" style="margin-right:20px;" ajax="false">  
+        <h:outputText value="#{msgs.forgetPass}" />  
+    </p:commandLink> </p>
+	</h:panelGrid>
+	</p:panel>
+	<p><b><h:outputText value="#{userBean.message}" id="message"/></b></p>
+	</h:form>
+	<p:messages id="messages" showDetail="true" autoUpdate="true"/>
+	<ui:fragment rendered="#{userBean.loginError==1}">
+	#{msgs.loginError}
+	</ui:fragment>
+	</ui:fragment>
+	<ui:fragment rendered="#{userBean.retrievePass}">
+	<h:form>
+	<p:panel header="#{msgs.retrieve} #{msgs.password}"> 
+	<p>#{msgs.retrieveMSG}</p> 
+    <h:panelGrid columns="2">  
+	email:
+	<p:inputText value="#{userBean.email}"/>
+	<p:commandButton value="#{msgs.retrieve}"
+	action="#{userBean.retrievePass}"
+	ajax="true" update="message"/>
+	</h:panelGrid>
+	<p><b><h:outputText value="#{userBean.message}" id="message"/></b></p>
+	</p:panel>
+	</h:form>
+	</ui:fragment>
+	</ui:define>
+</ui:composition>

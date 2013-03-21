@@ -1,0 +1,57 @@
+<ui:composition xmlns="//www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template3.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="top_title"><h1>Uta Results</h1></ui:define>
+	<ui:define name="main_view">
+	<p></p>
+	<p:dataTable id="Alternatives" var="alternative" value="#{projectBean.project.alternatives}" style="width:50%;">  
+        <f:facet name="header">  
+            Total Utilities  
+        </f:facet>  
+  
+        <p:column id="alternative" style="width:70%;" >  
+            <f:facet name="header">  
+                <h:outputText value="Alternative" />  
+            </f:facet>  
+            <h:outputText value="#{alternative.name}" />  
+        </p:column>  
+        <p:column id="utility" sortBy="#{alternative.utility}" style="align:center">  
+            <f:facet name="header">  
+                <h:outputText value="Utility" />  
+            </f:facet>  
+            <h:outputText value="#{alternative.utility}" />  
+        </p:column>
+        </p:dataTable>
+        <p></p>
+        <p:dataTable id="criteriaweight" var="criterio" value="#{projectBean.project.criteria}" style="width:50%;">  
+        <f:facet name="header">  
+            Criteria Weights  
+        </f:facet>  
+  
+        <p:column id="criterio" style="width:70%;" >  
+            <f:facet name="header">  
+                <h:outputText value="Alternative" />  
+            </f:facet>  
+            <h:outputText value="#{criterio.name}" />  
+        </p:column>  
+        <p:column id="weight" sortBy="#{criterio.weight}">  
+            <f:facet name="header">  
+                <h:outputText value="weights" />  
+            </f:facet>  
+            <h:outputText value="#{criterio.weight}%" />  
+        </p:column>
+        </p:dataTable>
+        
+        <p:dataGrid var="criteria" value="#{projectBean.project.criteria}" columns="2"  
+        rows="10" > 
+		<p:lineChart value="#{criteria.graph}"   
+     	title="#{criteria.name}" minY="0" maxY="1" minX="#{criteria.best lt criteria.worst ? criteria.best:criteria.worst}"
+     	maxX="#{criteria.best lt criteria.worst ? criteria.worst:criteria.best}"
+     	 style="width:80%;height:300px;align:right" animate="true"/>  
+	</p:dataGrid>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,72 @@
+<ui:composition 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template3.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="top_title"><h1>#{msgs.create_acount}</h1></ui:define>
+	<ui:define name="main_view">  
+		<h:form>
+  
+    <p:panel header="#{msgs.create_acount}">  
+  <table>
+  <tr>
+    <td>#{msgs.username}:</td>
+    <td><p:inputText value="#{userBean.user.username}" 
+             required="true"
+             requiredMessage="#{msgs.requireUsername}"
+             validator="#{userBean.validateUsername}"
+             id="username"/></td>
+    <td><p:message for="username" styleClass="error" showDetail="true"/></td></tr>
+  <tr>
+    <td>#{msgs.password}:</td>
+    <td><p:password value="#{userBean.user.password}" 
+          required="true" 
+          requiredMessage="#{msgs.requiredPassword }"
+          id="password">
+      <f:ajax event="blur"/>
+    </p:password></td>
+    <td><p:message for="password" styleClass="error"/></td></tr>
+  <tr>
+    <td>#{msgs.repeat_password}:</td>
+    <td><p:password value="#{userBean.pass}"
+          required="true"
+          requiredMessage="#{msgs.requiredPassword }"
+          id="repeat_password"
+          feedback="false">
+          <f:ajax event="blur" render="passError"/>
+    </p:password>
+    </td>
+    <td><p:messages globalOnly="true" autoUpdate="true" id="passError" showDetail="true"/>
+    <p:message for="repeat_password" styleClass="error"/>
+     </td></tr>
+  <tr>
+    <td>Email:</td>
+    <td><p:inputText value="#{userBean.user.email}" 
+         required="true"
+         requiredMessage="#{msgs.requireMail }"
+         validator="#{userBean.validateEmail}"
+         id="email"/></td>
+    <td><p:message for="email" styleClass="error"/></td></tr>
+    <tr>
+    <td>#{msgs.name}:</td> 
+    <td><p:inputText value="#{userBean.user.name}" 
+         id="name"/></td></tr>
+    <tr>
+    <td>#{msgs.surname}:</td> 
+    <td><p:inputText value="#{userBean.user.surname}" 
+         id="surname"/></td></tr>
+    <tr>
+    <td>#{msgs.about}:</td>
+    <td><p:inputTextarea id="about" value="#{userBean.user.about}" /></td>
+    </tr>
+  <tr><td>
+      <p:commandButton value="#{msgs.submit }" 
+                       action="#{userBean.createUser}"
+                       ajax="false"/></td></tr>
+  </table>
+  </p:panel>
+</h:form>
+	</ui:define>
+</ui:composition>

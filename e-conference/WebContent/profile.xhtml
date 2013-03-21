@@ -1,0 +1,48 @@
+<ui:composition xmlns="//www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template3.xhtml">
+	<ui:define name="page_title"><title>#{msgs.app_title}</title></ui:define>
+	<ui:define name="top_title"><h1>#{msgs.profileDetails}</h1></ui:define>
+	<ui:define name="main_view">  
+<p></p>
+	<ui:fragment >
+	<p:fieldset legend="#{msgs.user}: #{userBean.user.username}">
+	<p:panel header="#{msgs.profileDetails}" style="margin-top:20px">
+	 <table>
+	 <tr>
+	 <td ><b>#{msgs.username}:</b></td><td>#{userBean.user.username}</td>
+	 </tr>
+	 <tr>
+	 <td><b>#{msgs.name}:</b></td><td>#{userBean.user.name}</td>
+	 </tr>
+	 <tr>
+	 <td ><b>#{msgs.surname}:</b></td><td>#{userBean.user.surname}</td>
+	 </tr>
+	 <tr>
+	 <td ><b>#{msgs.aboutPr}:</b></td><td>#{userBean.user.about}</td>
+	 </tr>
+	 <tr>
+	 <h:form>
+	 <td><p:commandButton id="edit" value="#{msgs.edit}" action="editProfile.jsf" ajax="false"/></td>
+	 <td><p:commandButton id="home" value="#{msgs.home}" action="workspace.jsf" ajax="false"/></td>
+	 </h:form>
+	 </tr>
+	 </table>
+   		 
+    </p:panel>
+	</p:fieldset>
+	</ui:fragment>
+	<ui:fragment rendered="#{userBean.user.notLoggedIn}">
+	#{msgs.loginPromt}
+	<p></p>
+	<p:separator id="separator"/> 
+	<p></p>
+	<h:form>
+	<p:commandButton id="login" value="#{msgs.login}" ajax="false" action="login.jsf"/>
+	</h:form>
+	</ui:fragment>
+	</ui:define>
+</ui:composition>
