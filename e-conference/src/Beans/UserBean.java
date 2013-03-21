@@ -336,7 +336,7 @@ public class UserBean implements Serializable {
 		UserDAO d=DAOFactory.Factory.getUserDAO();
 		d.editUsername(user.getEmail(), user.getUsername());
 	}
-	
+	//test name
 	public void editName()
 	{
 		UserDAO d=DAOFactory.Factory.getUserDAO();
