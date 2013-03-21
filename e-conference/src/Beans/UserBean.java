@@ -288,6 +288,7 @@ public class UserBean implements Serializable {
 		@SuppressWarnings("deprecation") //read data from projectbean
 		ProjectBean projectbean=(ProjectBean) facesContext.getApplication().getVariableResolver().resolveVariable(facesContext, "projectBean");
 		projectbean.init();
+		retrievePass=false;
 		return "workspace";
 		
 	}
